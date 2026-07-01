@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/REPLACE_WITH_YOUR_GITHUB_USERNAME/cloud-native-cicd.git
+    repoURL: https://github.com/sharath17kumar/cloud-native-cicd.git
     targetRevision: main
     path: k8s
   destination:
