@@ -1,0 +1,65 @@
+End-to-End Cloud Native CI/CD Platform
+Built a production-grade CI/CD platform demonstrating modern DevOps practices — automated pipelines, container orchestration, GitOps delivery, and full-stack observability.
+
+Architecture
+Code Push → GitHub Actions → Docker Build → Docker Hub
+                                                 ↓
+                              Argo CD (GitOps) ← K8s Manifests
+                                   ↓
+                            Kubernetes (Minikube)
+                                   ↓
+                          NGINX Ingress Controller
+                                   ↓
+                        Prometheus + Grafana Monitoring
+
+
+Tech Stack
+
+GitHub Actions · Docker · Kubernetes · Minikube · Helm · Argo CD · NGINX Ingress · Prometheus · Grafana · Alertmanager · Node.js
+
+What I Built
+
+🔹 CI/CD Pipeline — Automated build, test, Docker image push, and manifest update via GitHub Actions
+
+🔹 Kubernetes Deployment — 3-replica deployment with rolling updates, self-healing, liveness/readiness probes, and resource limits
+
+🔹 GitOps with Argo CD — Continuous delivery from Git with automated sync, self-heal, and auto-prune
+
+🔹 Traffic Management — NGINX Ingress Controller for application routing
+
+🔹 Monitoring & Observability — Prometheus metrics collection, Grafana dashboards, and Alertmanager for alerting workflows
+
+🔹 Dockerized Application — Multi-stage Docker builds with non-root user, health checks, and custom Prometheus metrics (`/metrics` endpoint)
+
+Project Structure
+
+
+├── app/                    # Node.js app + Dockerfile
+├── k8s/                    # Kubernetes manifests
+├── helm/cloud-native-app/  # Helm chart
+├── argocd/                 # Argo CD application
+├── monitoring/             # Prometheus + Grafana config
+└── .github/workflows/      # GitHub Actions CI/CD
+
+
+Quick Start
+
+bash
+minikube start --cpus=2 --memory=2048
+kubectl apply -f k8s/
+minikube addons enable ingress
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+kubectl apply -f argocd/application.yaml
+kubectl create namespace monitoring
+helm install prometheus-stack prometheus-community/kube-prometheus-stack -n monitoring -f monitoring/prometheus-values.yaml
+
+
+CI/CD Flow
+
+
+Push to main → Tests run → Docker image built & pushed → K8s manifests updated
+→ Argo CD syncs → Rolling update (zero downtime) → Prometheus scrapes new pods
+
+Sharath Kumar R
+sharathkumar2003r@gmail.com
